@@ -17,11 +17,9 @@ ${NAME}: ${SRC}
 
 clean:
 	make -C ./libft/ clean
-	make -C ./ft_printf/ clean
 
 fclean: clean
 	${RM} $(NAME)
 	make -C ./libft/ fclean
-	make -C ./ft_printf/ fclean
 
 re: fclean all
