@@ -111,46 +111,6 @@ void	check_argc(int argc)
 		exit(1);
 	}
 }
-void	check_cub_texture(char **content, int *i)
-{
-	int	found;
-
-	found = 0;
-	while (*i < 4 && content[*i])
-	{
-		if (ft_strncmp(content[*i], "NO ", 3) == 0 || ft_strncmp(content[*i],
-				"SO ", 3) == 0 || ft_strncmp(content[*i], "WE ", 3) == 0
-			|| ft_strncmp(content[*i], "EA ", 3) == 0)
-			found++;
-		(*i)++;
-	}
-	if (found != 4 && *i != found)
-		write(2, "Texture error!\n", 16);
-	if (*i == 0)
-		write(2, "Empty .cub file!\n", 18);
-}
-
-void	check_cub_colors(char **content, int *i)
-{
-	int	found;
-	int	j;
-	int	ex;
-
-	found = 0;
-	ex = *i;
-	j = *i + 2;
-	printf("this is j : %d\n", j);
-	while (*i < j && content[*i])
-	{
-		printf("this is i : %d\n", *i);
-		if (ft_strncmp(content[*i], "F ", 2) == 0 || ft_strncmp(content[*i],
-				"C ", 2) == 0)
-			found++;
-		(*i)++;
-	}
-	if (*i - ex != found && found != 2)
-		write(2, "Colors error\n", 14);
-}
 int	ft_strcmp(char *s1, char *s2)
 {
 	int	i;
@@ -179,7 +139,7 @@ int	is_blank(char *s)
 
 void	error_exit(char *msg)
 {
-	write(2, "Error\n", 6);
+	write(2, "Error ", 7);
 	write(2, msg, ft_strlen(msg));
 	write(2, "\n", 1);
 	exit(EXIT_FAILURE);
@@ -188,17 +148,26 @@ void	error_exit(char *msg)
 static void	check_path(char *path)
 {
 	if (path == NULL)
-		return;
-	path[ft_strlen(path)-1] = 0;
+		return ;
+	path[ft_strlen(path) - 1] = 0;
 	if (!*path || access(path, R_OK) != 0)
 	{
 		error_exit("Texture path not accessible");
 	}
 }
 
-static void	assign_texture(char *line, char **dest, char *id)
+static void	assign_texture(t_map *map,char *line, char **dest, char *id)
 {
 	char	*path;
+
+	if(ft_strcmp(id,"NO") == 0 && map->has_no)
+		error_exit("Duplicate NO texture");
+	else if(ft_strcmp(id,"SO") == 0 && map->has_so)
+		error_exit("Duplicate SO texture");
+	else if(ft_strcmp(id,"WE") == 0 && map->has_we)
+		error_exit("Duplicate WE texture");
+	else if(ft_strcmp(id,"EA") == 0 && map->has_ea)
+		error_exit("Duplicate EA texture");
 
 	path = line + ft_strlen(id);
 	while (*path == ' ')
@@ -209,61 +178,199 @@ static void	assign_texture(char *line, char **dest, char *id)
 		error_exit("Malloc failed for texture");
 }
 
-static int	is_texture(char *line, t_map *map)
+int	parse_rgb(char *line, int *r, int *g, int *b)
 {
-	if (!map->has_no && ft_strncmp(line, "NO ", 3) == 0)
-		return (1);
-	if (!map->has_so && ft_strncmp(line, "SO ", 3) == 0)
-		return (2);
-	if (!map->has_we && ft_strncmp(line, "WE ", 3) == 0)
-		return (3);
-	if (!map->has_ea && ft_strncmp(line, "EA ", 3) == 0)
-		return (4);
-	return (0);
+	char	**splited_line;
+	int		count;
+
+	splited_line = ft_split(line + 2, ',');
+	if (!splited_line)
+		return (0);
+	count = 0;
+	while (splited_line[count])
+		count++;
+	if (count != 3)
+	{
+		ftt_free(splited_line);
+		return (0);
+	}
+	*r = ft_atoi(splited_line[0]);
+	*g = ft_atoi(splited_line[1]);
+	*b = ft_atoi(splited_line[2]);
+	ftt_free(splited_line);
+	if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
+		return (0);
+	return (1);
 }
 
-void	check_cub_textures2(char **lines, int *i, t_map *map)
+static void	set_floor_color(t_map *map, char *line)
 {
-	int	code;
+	int	r;
+	int	g;
+	int	b;
 
+	if (map->has_floor)
+		error_exit("Duplicate floor color");
+	if (!parse_rgb(line, &r, &g, &b))
+		error_exit("Invalid floor color");
+	map->floor_r = r;
+	map->floor_g = g;
+	map->floor_b = b;
+	map->has_floor = 1;
+}
+
+static void	set_ceiling_color(t_map *map, char *line)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	if (map->has_ceiling)
+		error_exit("Duplicate ceiling color");
+	if (!parse_rgb(line, &r, &g, &b))
+		error_exit("Invalid ceiling color");
+	map->ceiling_r = r;
+	map->ceiling_g = g;
+	map->ceiling_b = b;
+	map->has_ceiling = 1;
+}
+void	parse_textures_and_colors(char **lines, int *i, t_map *map)
+{
 	while (lines[*i])
 	{
-		if (is_blank(lines[*i]))
+		if (lines[*i] && is_blank(lines[*i]))
 			(*i)++;
+		else if (ft_strncmp(lines[*i], "NO ", 3) == 0)
+			assign_texture(map,lines[*i], &map->no, "NO"), map->has_no = 1, (*i)++;
+		else if (ft_strncmp(lines[*i], "SO ", 3) == 0)
+			assign_texture(map,lines[*i], &map->so, "SO"), map->has_so = 1, (*i)++;
+		else if (ft_strncmp(lines[*i], "WE ", 3) == 0)
+			assign_texture(map,lines[*i], &map->we, "WE"), map->has_we = 1, (*i)++;
+		else if (ft_strncmp(lines[*i], "EA ", 3) == 0)
+			assign_texture(map,lines[*i], &map->ea, "EA"), map->has_ea = 1, (*i)++;
+		else if (ft_strncmp(lines[*i], "F ", 2) == 0)
+			set_floor_color(map, lines[*i]), map->has_floor = 1, (*i)++;
+		else if (ft_strncmp(lines[*i], "C ", 2) == 0)
+			set_ceiling_color(map, lines[*i]), map->has_ceiling = 1, (*i)++;
 		else
-		{
-			code = is_texture(lines[*i], map);
-			if (code == 1)
-				assign_texture(lines[*i], &map->no, "NO"), map->has_no = 1;
-			else if (code == 2)
-				assign_texture(lines[*i], &map->so, "SO"), map->has_so = 1;
-			else if (code == 3)
-				assign_texture(lines[*i], &map->we, "WE"), map->has_we = 1;
-			else if (code == 4)
-				assign_texture(lines[*i], &map->ea, "EA"), map->has_ea = 1;
-			else
-				break ;
-			(*i)++;
-		}
+			break ;
 	}
-	if (!(map->has_no && map->has_so && map->has_we && map->has_ea))
-		error_exit("Missing texture");
+	if (!(map->has_no && map->has_so && map->has_we && map->has_ea
+			&& map->has_floor && map->has_ceiling))
+		error_exit("Missing textures or colors");
+}
+void check_no_blank_lines_inside_map(char **content, int start)
+{
+    int i = start;
+    int map_started = 0;
+
+    while (content[i])
+    {
+        if (is_blank(content[i]))
+        {
+            if (map_started)
+                error_exit("Map contains empty line inside");
+        }
+        else
+        {
+            map_started = 1;
+        }
+        i++;
+    }
+}
+
+int count_map_lines(char **content, int start)
+{
+    int count = 0;
+    while (content[start + count])
+        count++;
+    return count;
+}
+void trim_newline(char *str)
+{
+    int len = ft_strlen(str);
+    if (len > 0 && str[len - 1] == '\n')
+        str[len - 1] = '\0';
+}
+
+void store_map_lines(char **content, int start, t_map *map)
+{
+	int map_lines;
+	int j;
+	j = 0;
+    map_lines = count_map_lines(content, start);
+    map->map_grid = malloc(sizeof(char *) * (map_lines + 1));
+    if (!map->map_grid)
+        error_exit("Malloc failed for map grid");
+    while (j < map_lines)
+	{
+        map->map_grid[j] = ft_strdup(content[start + j]);
+		trim_newline(map->map_grid[j]); 
+		j++;
+	}
+    map->map_grid[map_lines] = NULL; // Null terminate
+    map->line_count = map_lines;
+
+}
+
+int is_valid_map_char(char c)
+{
+	if(c == '0' || c == '1' || c == ' ' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+		return 1;
+    return (0);
+}
+
+void validate_map_chars(t_map *map)
+{
+	int player_count;
+	char* line;
+	int i;
+	int j;
+	j = 0;
+	i = 0;
+    player_count = 0;
+    while(i < map->line_count)
+    {
+        line = map->map_grid[i];
+		j = 0;
+        while( line[j])
+        {
+            if (!is_valid_map_char(line[j]))
+			{ 
+                error_exit("Invalid character in map");
+			}
+            if (line[j] == 'N' || line[j] == 'S' || line[j] == 'E' || line[j] == 'W')
+                player_count++;
+			j++;
+        }
+		i++;
+    }
+    if (player_count != 1)
+        error_exit("Map must have exactly one player start");
 }
 
 
-void	check_map_content(char **content,t_map *map)
+
+void parse_map(t_map *map, char **content, int start)
+{
+    store_map_lines(content, start, map);
+    validate_map_chars(map);
+    // validate_map_borders(map);
+    // find player pos and store
+}
+
+void	check_map_content(char **content, t_map *map)
 {
 	int	i;
 
 	i = 0;
-	check_cub_textures2(content, &i,map);
-	while (content[i] && ft_strcmp(content[i], "\n") == 0)
-		i++;
-	check_cub_colors(content, &i);
+	parse_textures_and_colors(map->map_two_d, &i, map);
 	while (content[i] && ft_strcmp(content[i], "\n") == 0)
 		i++;
 	if (!content[i])
 		write(2, "Map doesn't exist!\n", 20);
+	check_no_blank_lines_inside_map(content, i);
+	parse_map(map,content,i);
 }
 int	main(int argc, char **argv)
 {
@@ -274,6 +381,6 @@ int	main(int argc, char **argv)
 	check_extention(argv[1]);
 	check_if_file_exist(argv[1]);
 	get_cub_content(argv[1], &map);
-	check_map_content(map.map_two_d,&map);
+	check_map_content(map.map_two_d, &map);
 	return (0);
 }

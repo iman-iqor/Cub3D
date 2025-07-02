@@ -23,7 +23,7 @@ typedef struct s_map
 	int		fd;
 	int		line_count;
 	char	**map_two_d;
-	char	**map_two_d2;
+	char** map_grid;
 	int		player_x;
 	int		player_y;
 	int		exit_x;
@@ -35,6 +35,8 @@ typedef struct s_map
 	char	*ea;
 	int has_no, has_so, has_we, has_ea;
 	int has_floor, has_ceiling;
+	int floor_r,floor_g,floor_b;
+	int ceiling_r,ceiling_g,ceiling_b;
 }			t_map;
 /******  SPLIT   ****** */
 char		*ftt_free(char **arr);
