@@ -1,12 +1,12 @@
 #ifndef HEADER_H
-#define HEADER_H
-#include<unistd.h>
-#include<stdio.h>
-#include<stdlib.h>
-#include<fcntl.h>
-#include<errno.h>
-# include "./libft/libft.h"
+# define HEADER_H
 # include "./get_next_line/get_next_line.h"
+# include "./libft/libft.h"
+# include <errno.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_state
 {
@@ -28,15 +28,18 @@ typedef struct s_map
 	int		player_y;
 	int		exit_x;
 	int		exit_y;
-	int		total_c;
-	int		c_count;
 	char	*lines;
-
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	int has_no, has_so, has_we, has_ea;
+	int has_floor, has_ceiling;
 }			t_map;
 /******  SPLIT   ****** */
-char	*ftt_free(char **arr);
-char	*ft_strncopy(char *str, int start, int end);
-int	count_word(char *args, char sep);
-void	init_state(t_state *state, char *args, char sep);
-char	**split_lines(char *args, char sep);
+char		*ftt_free(char **arr);
+char		*ft_strncopy(char *str, int start, int end);
+int			count_word(char *args, char sep);
+void		init_state(t_state *state, char *args, char sep);
+char		**split_lines(char *args, char sep);
 #endif
