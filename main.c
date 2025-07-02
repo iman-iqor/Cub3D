@@ -26,42 +26,99 @@ char	*ft_ssstrjoin(char *save, char *buff)
 	free(save);
 	return (str);
 }
-void	join_lines_error(char *s, char *str)
+
+
+int is_line_empty(char *line)
 {
-	write(2, "Error\n :invalid map has newlines\n", 34);
-	free(s);
-	free(str);
-	exit(1);
+    int i = 0;
+    if (!line)
+        return 1;
+    while (line[i])
+    {
+        if (line[i] != ' ' && line[i] != '\t')
+            return 0;
+        i++;
+    }
+    return 1;
 }
 
-char	*join_lines(char *argv)
+int is_map_line(char *line)
 {
-	char	*s;
-	char	*str;
-	int		fd;
-
-	str = NULL;
-	s = "a";
-	fd = open(argv, O_RDONLY);;
-	while (s)
-	{
-		s = get_next_line(fd, 0);
-		if (!(ft_strncmp(s, "\n", 1)))
-		{
-			get_next_line(fd, 1);
-			join_lines_error(s, str);
-		}
-		if (s)
-			str = ft_ssstrjoin(str, s);
-		free(s);
-	}
-	if (!str)
-	{
-		write(1, "Error the file is empty\n", 25);
-		exit(1);
-	}
-	return (str);
+    int i = 0;
+    if (!line)
+        return 0;
+    while (line[i])
+    {
+        if (line[i] != '0' && line[i] != 'N' &&
+            line[i] != 'S' && line[i] != 'E' && line[i] != 'W' &&
+            line[i] != ' ' && line[i] != '\t')
+            return 0;
+        i++;
+    }
+    return 1;
 }
+
+char *join_lines(char *filename)
+{
+    char *line = NULL;
+    char *joined = NULL;
+    int fd = open(filename, O_RDONLY);
+    int map_started = 0;
+
+    if (fd < 0)
+    {
+        perror("Error opening file");
+        exit(1);
+    }
+    line="a";
+
+    while (line)
+    {
+        line = get_next_line(fd, 0);
+        if (!map_started)
+        {
+            if (is_line_empty(line))
+            {
+                free(line);
+                continue; // skip empty lines before map
+            }
+            else if (is_map_line(line))
+            {
+                map_started = 1;
+            }
+        }
+        else // map has started
+        {
+            
+            if (is_line_empty(line))
+            {
+                // printf("hi\n");
+                free(line);
+                write(2, "Error\nInvalid map: empty line inside map\n", 42);
+                exit(1);
+            }
+            else if (!is_map_line(line))
+            {
+                free(line);
+                write(2, "Error\nInvalid map: invalid characters in map\n", 46);
+                exit(1);
+            }
+        }
+
+        joined = ft_ssstrjoin(joined, line);
+        free(line);
+    }
+
+    close(fd);
+
+    if (!joined)
+    {
+        write(2, "Error\nEmpty file or no map found\n", 33);
+        exit(1);
+    }
+    return joined;
+}
+
 
 int	check_if_file_exist(char *argv)
 {
