@@ -12,7 +12,7 @@ all: ${NAME}
 ${NAME}: ${SRC}
 	make -C ./libft/
 	# make -C ./minilibx/  
-	${CC} ${SRC} ./libft/libft.a -o $(NAME) ${CFLAGS} ${MLX_FLAGS_LINUX}
+	${CC} ${SRC} ./libft/libft.a -o $(NAME) ${CFLAGS} # ${MLX_FLAGS_MAC}
 
 
 clean:

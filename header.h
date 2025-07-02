@@ -3,6 +3,8 @@
 #include<unistd.h>
 #include<stdio.h>
 #include<stdlib.h>
+#include<fcntl.h>
+#include<errno.h>
 # include "./libft/libft.h"
 # include "./get_next_line/get_next_line.h"
 
@@ -31,4 +33,10 @@ typedef struct s_map
 	char	*lines;
 
 }			t_map;
+/******  SPLIT   ****** */
+char	*ftt_free(char **arr);
+char	*ft_strncopy(char *str, int start, int end);
+int	count_word(char *args, char sep);
+void	init_state(t_state *state, char *args, char sep);
+char	**split_lines(char *args, char sep);
 #endif

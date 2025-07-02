@@ -1,4 +1,5 @@
 #include "header.h"
+
 char	*ft_ssstrjoin(char *save, char *buff)
 {
 	int		len;
@@ -28,97 +29,52 @@ char	*ft_ssstrjoin(char *save, char *buff)
 }
 
 
-int is_line_empty(char *line)
+int	nbr_of_lines(char *filename)
 {
-    int i = 0;
-    if (!line)
-        return 1;
-    while (line[i])
-    {
-        if (line[i] != ' ' && line[i] != '\t')
-            return 0;
-        i++;
-    }
-    return 1;
-}
+	int		i;
+	int		fd;
+	char	*line;
 
-int is_map_line(char *line)
+	i = 0;
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+		perror(filename);
+		exit(EXIT_FAILURE);
+	}
+	line = get_next_line(fd, 0);
+	while (line)
+	{
+		free(line);
+		i++;
+		line = get_next_line(fd, 0);
+	}
+	close(fd);
+	return (i);
+}
+void	get_cub_content(char *argv, t_map *map)
 {
-    int i = 0;
-    if (!line)
-        return 0;
-    while (line[i])
-    {
-        if (line[i] != '0' && line[i] != 'N' &&
-            line[i] != 'S' && line[i] != 'E' && line[i] != 'W' &&
-            line[i] != ' ' && line[i] != '\t')
-            return 0;
-        i++;
-    }
-    return 1;
+	int	len;
+	int	fd;
+	int	i;
+
+	i = 0;
+	len = nbr_of_lines(argv);
+	map->map_two_d = malloc(sizeof(char *) * (len + 1));
+	if (!map->map_two_d)
+		write(2, "Malloc Error: parser.c: 81\n", 28);
+	fd = open(argv, O_RDONLY);
+	if (fd == -1)
+	{
+		perror(argv);
+		exit(EXIT_FAILURE);
+	}
+	map->map_two_d[i] = get_next_line(fd, 0);
+	while (i < len && map->map_two_d[i++])
+		map->map_two_d[i] = get_next_line(fd, 0);
+	map->map_two_d[i] = 0;
+	close(fd);
 }
-
-char *join_lines(char *filename)
-{
-    char *line = NULL;
-    char *joined = NULL;
-    int fd = open(filename, O_RDONLY);
-    int map_started = 0;
-
-    if (fd < 0)
-    {
-        perror("Error opening file");
-        exit(1);
-    }
-    line="a";
-
-    while (line)
-    {
-        line = get_next_line(fd, 0);
-        if (!map_started)
-        {
-            if (is_line_empty(line))
-            {
-                free(line);
-                continue; // skip empty lines before map
-            }
-            else if (is_map_line(line))
-            {
-                map_started = 1;
-            }
-        }
-        else // map has started
-        {
-            
-            if (is_line_empty(line))
-            {
-                // printf("hi\n");
-                free(line);
-                write(2, "Error\nInvalid map: empty line inside map\n", 42);
-                exit(1);
-            }
-            else if (!is_map_line(line))
-            {
-                free(line);
-                write(2, "Error\nInvalid map: invalid characters in map\n", 46);
-                exit(1);
-            }
-        }
-
-        joined = ft_ssstrjoin(joined, line);
-        free(line);
-    }
-
-    close(fd);
-
-    if (!joined)
-    {
-        write(2, "Error\nEmpty file or no map found\n", 33);
-        exit(1);
-    }
-    return joined;
-}
-
 
 int	check_if_file_exist(char *argv)
 {
@@ -130,8 +86,8 @@ int	check_if_file_exist(char *argv)
 		perror("Error\n");
 		exit(1);
 	}
-    //maybe i should the fd here
-	return fd;
+	// maybe i should close the fd here
+	return (fd);
 }
 void	check_extention(char *argv)
 {
@@ -149,22 +105,88 @@ void	check_extention(char *argv)
 }
 void	check_argc(int argc)
 {
-	if (argc == 1)
+	if (argc != 2)
 	{
-		write(1, "Error \nu should add the file that contains the map\n", 52);
+		write(1, "Usage: ./cub3D ./path_to_map\n", 30);
 		exit(1);
 	}
 }
+void	check_cub_texture(char **content, int *i)
+{
+	int	found;
+
+	found = 0;
+	while (*i < 4 && content[*i])
+	{
+		if (ft_strncmp(content[*i], "NO ", 3) == 0
+			|| ft_strncmp(content[*i], "SO ", 3) == 0
+			|| ft_strncmp(content[*i], "WE ", 3) == 0
+			|| ft_strncmp(content[*i], "EA ", 3) == 0)
+			found++;
+		(*i)++;
+	}
+	if (found != 4 && *i != found)
+		write(2,"Texture error!\n",16);
+	if (*i == 0)
+		write(2,"Empty .cub file!\n",18);
+}
+
+void	check_cub_colors(char **content, int *i)
+{
+	int	found;
+	int	j;
+	int	ex;
+
+	found = 0;
+	ex = *i;
+	j = *i + 2;
+	while (*i < j && content[*i])
+	{
+		if (ft_strncmp(content[*i], "F ", 2) == 0
+			|| ft_strncmp(content[*i], "C ", 2) == 0)
+			found++;
+		(*i)++;
+	}
+	if (*i - ex != found && found != 2)
+		write(2,"Colors error\n",14);
+}
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] == s2[i])
+			i++;
+		else
+			break ;
+	}
+	return (s1[i] - s2[i]);
+}
+void	check_map_content(char **content)
+{
+	int	i;
+
+	i = 0;
+	check_cub_texture(content, &i);
+	while (content[i] && ft_strcmp(content[i], "\n") == 0)
+		i++;
+	check_cub_colors(content, &i);
+	while (content[i] && ft_strcmp(content[i], "\n") == 0)
+		i++;
+	if (!content[i])
+		write(2,"Map doesn't exist!\n",20);
+}
 int	main(int argc, char **argv)
 {
-	(void)argc;
-	(void)argv;
-	t_map map;
+	t_map	map;
+
 	ft_memset(&map, 0, sizeof(t_map));
 	check_argc(argc);
 	check_extention(argv[1]);
-    
 	check_if_file_exist(argv[1]);
-    map.lines = join_lines(argv[1]);
+	get_cub_content(argv[1], &map);
+	check_map_content(map.map_two_d);
 	return (0);
 }
