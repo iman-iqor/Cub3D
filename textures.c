@@ -1,6 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textures.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/03 00:51:59 by imiqor            #+#    #+#             */
+/*   Updated: 2025/07/03 00:52:00 by imiqor           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+
 #include"header.h"
 
-static void	check_path(char *path)
+void	check_path(char *path)
 {
 	if (path == NULL)
 		return ;
@@ -26,7 +40,7 @@ char	*trim_spaces_end(char *str)
 	ft_strlcpy(trimmed, str, len + 1);
 	return (trimmed);
 }
-static void	assign_texture(t_map *map,char *line, char **dest, char *id)
+void	assign_texture(t_map *map,char *line, char **dest, char *id)
 {
 	char	*path;
 

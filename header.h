@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   header.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
+/*   Updated: 2025/07/03 00:50:49 by imiqor           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+
 #ifndef HEADER_H
 # define HEADER_H
 # include "./get_next_line/get_next_line.h"
@@ -46,14 +60,14 @@ int			count_word(char *args, char sep);
 void		init_state(t_state *state, char *args, char sep);
 char		**split_lines(char *args, char sep);
 /******  TEXTURES   ****** */
-static void	check_path(char *path);
+void	check_path(char *path);
 char	*trim_spaces_end(char *str);
-static void	assign_texture(t_map *map,char *line, char **dest, char *id);
+void	assign_texture(t_map *map,char *line, char **dest, char *id);
 void	parse_textures_and_colors(char **lines, int *i, t_map *map);
 /******  COLORS   ****** */
 int	parse_rgb(char *line, int *r, int *g, int *b);
-static void	set_floor_color(t_map *map, char *line);
-static void	set_ceiling_color(t_map *map, char *line);
+void	set_floor_color(t_map *map, char *line);
+void	set_ceiling_color(t_map *map, char *line);
 /******  ARGV1  ****** */
 int	check_if_file_exist(char *argv);
 void	check_extention(char *argv);

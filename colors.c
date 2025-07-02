@@ -1,3 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colors.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/07/03 00:51:10 by imiqor            #+#    #+#             */
+/*   Updated: 2025/07/03 00:51:11 by imiqor           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
+
 #include"header.h"
 int	parse_rgb(char *line, int *r, int *g, int *b)
 {
@@ -24,7 +38,7 @@ int	parse_rgb(char *line, int *r, int *g, int *b)
 	return (1);
 }
 
-static void	set_floor_color(t_map *map, char *line)
+void	set_floor_color(t_map *map, char *line)
 {
 	int	r;
 	int	g;
@@ -40,7 +54,7 @@ static void	set_floor_color(t_map *map, char *line)
 	map->has_floor = 1;
 }
 
-static void	set_ceiling_color(t_map *map, char *line)
+void	set_ceiling_color(t_map *map, char *line)
 {
 	int	r;
 	int	g;
