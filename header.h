@@ -22,6 +22,7 @@ typedef struct s_map
 {
 	int		fd;
 	int		line_count;
+	int grid_lines_count;
 	char	**map_two_d;
 	char** map_grid;
 	int		player_x;
@@ -44,4 +45,37 @@ char		*ft_strncopy(char *str, int start, int end);
 int			count_word(char *args, char sep);
 void		init_state(t_state *state, char *args, char sep);
 char		**split_lines(char *args, char sep);
+/******  TEXTURES   ****** */
+static void	check_path(char *path);
+char	*trim_spaces_end(char *str);
+static void	assign_texture(t_map *map,char *line, char **dest, char *id);
+void	parse_textures_and_colors(char **lines, int *i, t_map *map);
+/******  COLORS   ****** */
+int	parse_rgb(char *line, int *r, int *g, int *b);
+static void	set_floor_color(t_map *map, char *line);
+static void	set_ceiling_color(t_map *map, char *line);
+/******  ARGV1  ****** */
+int	check_if_file_exist(char *argv);
+void	check_extention(char *argv);
+void	check_argc(int argc);
+/******  MAP_CONTENT  ****** */
+int	nbr_of_lines(char *filename);
+void	get_cub_content(char *argv, t_map *map);
+/******  PARSE_MAP  ****** */
+int count_map_lines(char **content, int start);
+void trim_newline(char *str);
+int contains_zero(char *line);
+void store_map_lines(char **content, int start, t_map *map);
+int is_valid_map_char(char c);
+void validate_map_chars(t_map *map);
+void validate_walls(t_map *map);
+void parse_map(t_map *map, char **content, int start);
+/******  UTILS  ****** */
+char	*ft_ssstrjoin(char *save, char *buff);
+int	ft_strcmp(char *s1, char *s2);
+int	ft_strcmp(char *s1, char *s2);
+void	error_exit(char *msg);
+int	is_blank(char *s);
+void check_no_blank_lines_inside_map(char **content, int start);
+
 #endif
