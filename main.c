@@ -149,11 +149,28 @@ static void	check_path(char *path)
 {
 	if (path == NULL)
 		return ;
-	path[ft_strlen(path) - 1] = 0;
-	if (!*path || access(path, R_OK) != 0)
+	// path[ft_strlen(path) - 1] = 0;
+	printf("{%s}\n",path);
+	if (!*path || access(path, F_OK) != 0)
 	{
 		error_exit("Texture path not accessible");
 	}
+}
+char	*trim_spaces_end(char *str)
+{
+	int		len;
+	char	*trimmed;
+
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\n' || str[len - 1] == '\t'))
+		len--;
+	trimmed = malloc(len + 1);
+	if (!trimmed)
+		return (NULL);
+	ft_strlcpy(trimmed, str, len + 1);
+	return (trimmed);
 }
 
 static void	assign_texture(t_map *map,char *line, char **dest, char *id)
@@ -172,8 +189,9 @@ static void	assign_texture(t_map *map,char *line, char **dest, char *id)
 	path = line + ft_strlen(id);
 	while (*path == ' ')
 		path++;
-	check_path(path);
-	*dest = ft_strdup(path);
+	char *clean = trim_spaces_end(path);
+	check_path(clean);
+	*dest = ft_strdup(clean);
 	if (!*dest)
 		error_exit("Malloc failed for texture");
 }
@@ -349,12 +367,71 @@ void validate_map_chars(t_map *map)
         error_exit("Map must have exactly one player start");
 }
 
+static void	validate_horizontal_border(char *line, char *err_msg)
+{
+	int	j = 0;
+
+	while (line[j])
+	{
+		if (line[j] != '1' && line[j] != ' ')
+			error_exit(err_msg);
+		j++;
+	}
+}
+
+static void	validate_vertical_borders(t_map *map)
+{
+	int		i;
+	int		len;
+	char	*line;
+
+	i = 1;
+	while (i < map->line_count - 1)
+	{
+		line = map->map_grid[i];
+		len = ft_strlen(line);
+		if (len == 0)
+			error_exit("Empty line in map");
+		if (line[0] != '1' && line[0] != ' ')
+			error_exit("Left border must be walls");
+		if (line[len - 1] != '1' && line[len - 1] != ' ')
+			error_exit("Right border must be walls");
+		i++;
+	}
+}
+
+void	validate_map_borders(t_map *map)
+{
+	validate_horizontal_border(map->map_grid[0], "Top border must be walls");
+	validate_horizontal_border(map->map_grid[map->line_count - 1], "Bottom border must be walls");
+	validate_vertical_borders(map);
+}
+void validate_walls(t_map *map)
+{
+	int i  = 0;
+	int j = 0;
+	while(map->map_grid[i])
+	{
+		j = 0;
+		while(map->map_grid[i][j])
+		{
+			if((map->map_grid[i][j] != '0' && map->map_grid[i][j] != '1' && map->map_grid[i][j] != 'N'))
+			{
+				write(2,"not sorrounded\n",16);
+				exit(1);
+			}
+			j++;
+		}
+		i++;
+	}
+}
 
 
 void parse_map(t_map *map, char **content, int start)
 {
     store_map_lines(content, start, map);
     validate_map_chars(map);
+	validate_walls(map);
     // validate_map_borders(map);
     // find player pos and store
 }
