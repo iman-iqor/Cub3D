@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:03 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 00:51:04 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/03 16:50:27 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_if_file_exist(char *argv)
 		perror("Error\n");
 		exit(1);
 	}
-	// maybe i should close the fd here
+	close(fd);
 	return (fd);
 }
 void	check_extention(char *argv)

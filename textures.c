@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:59 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 00:52:00 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/03 17:05:00 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	assign_texture(t_map *map,char *line, char **dest, char *id)
 	char *clean = trim_spaces_end(path);
 	check_path(clean);
 	*dest = ft_strdup(clean);
+	free(clean);
 	if (!*dest)
 		error_exit("Malloc failed for texture");
 }

@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:24 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 00:51:25 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/03 16:54:15 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	get_cub_content(char *argv, t_map *map)
 	if (fd == -1)
 	{
 		perror(argv);
+		ftt_free(map->map_two_d);
 		exit(EXIT_FAILURE);
 	}
 	map->map_two_d[i] = get_next_line(fd, 0);

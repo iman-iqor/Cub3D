@@ -4,7 +4,7 @@ MLX_FLAGS_MAC = -framework OpenGL -framework AppKit -L./minilibx -lmlx
 MLX_FLAGS_LINUX = -lmlx -lXext -lX11
 SRC = main.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c split.c \
 argv1.c colors.c map_content.c parse_map1.c parse_map2.c parse_map3.c utils.c \
-textures.c 
+textures.c  parse_map4.c
 
 NAME  = cube3d
 RM = rm -f
