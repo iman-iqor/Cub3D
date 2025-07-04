@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 16:28:47 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/04 23:40:14 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 # define HEADER_H
 # include "./get_next_line/get_next_line.h"
 # include "./libft/libft.h"
+# include "./minilibx-linux/mlx.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include<math.h>
 
 typedef struct s_state
 {
@@ -29,6 +31,9 @@ typedef struct s_state
 	int		k;
 	char	**two_d;
 }			t_state;
+
+
+
 
 typedef struct s_map
 {
@@ -52,6 +57,21 @@ typedef struct s_map
 	int floor_r, floor_g, floor_b;
 	int ceiling_r, ceiling_g, ceiling_b;
 }			t_map;
+
+typedef struct s_game
+{
+	void	*mlx;       // MLX connection
+	void	*win;       // Window
+	int		win_width;
+	int		win_height;
+	t_map	map;        // Map data you already parsed
+	double	player_x;
+	double	player_y;
+	double	dir_x;       // Player direction vector (for raycasting)
+	double	dir_y;
+	double	plane_x;     // 2D camera plane
+	double	plane_y;
+}	t_game;
 /******  SPLIT   ****** */
 char		*ftt_free(char **arr);
 char		*ft_strncopy(char *str, int start, int end);
