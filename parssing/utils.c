@@ -6,13 +6,14 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:52:08 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 17:09:46 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:59:26 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
-#include"header.h"
+#include "../header.h"
+
 char	*ft_ssstrjoin(char *save, char *buff)
 {
 	int		len;
@@ -23,11 +24,11 @@ char	*ft_ssstrjoin(char *save, char *buff)
 	if (!save && !buff)
 		return (NULL);
 	if (!save && buff)
-		return (ft_strdup(buff));
+		return (ftt_strdup(buff));
 	if (save && !buff)
-		return (ft_strdup(save));
+		return (ftt_strdup(save));
 	len = ft_strlen(save) + ft_strlen(buff);
-	str = malloc(len + 1);
+	str = ft_gc(len + 1,'m');
 	if (!str)
 		return (NULL);
 	i = -1;
@@ -66,41 +67,25 @@ void	error_exit(char *msg)
 	write(2, "Error ", 7);
 	write(2, msg, ft_strlen(msg));
 	write(2, "\n", 1);
+	ft_gc(0,'f');
 	exit(EXIT_FAILURE);
 }
-
-
-
-int	is_blank(char *s)
+char	*ftt_strdup(const char *s1)
 {
-	while (*s)
+	char	*str2;
+	int		len;
+	int		i;
+
+	len = ft_strlen(s1);
+	str2 =ft_gc(len + 1,'m');
+	if (!str2)
+		return (NULL);
+	i = 0;
+	while (s1[i])
 	{
-		if (*s != ' ' && *s != '\t' && *s != '\n')
-			return (0);
-		s++;
+		str2[i] = s1[i];
+		i++;
 	}
-	return (1);
-}
-
-void check_no_blank_lines_inside_map(char **content, int start)
-{
-    int i = start;
-    int map_started = 0;
-
-    while (content[i])
-    {
-        if (is_blank(content[i]))
-        {
-            if (map_started)
-			{
-				ftt_free(content);
-                error_exit("Map contains empty line inside");
-			}
-        }
-        else
-        {
-            map_started = 1;
-        }
-        i++;
-    }
+	str2[i] = 0;
+	return (str2);
 }

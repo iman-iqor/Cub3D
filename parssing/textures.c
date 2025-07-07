@@ -6,13 +6,13 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:59 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 17:05:00 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:55:23 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
-#include"header.h"
+#include"../header.h"
 
 void	check_path(char *path)
 {
@@ -34,7 +34,7 @@ char	*trim_spaces_end(char *str)
 	len = ft_strlen(str);
 	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\n' || str[len - 1] == '\t'))
 		len--;
-	trimmed = malloc(len + 1);
+	trimmed = ft_gc(len + 1,'m');
 	if (!trimmed)
 		return (NULL);
 	ft_strlcpy(trimmed, str, len + 1);
@@ -58,8 +58,7 @@ void	assign_texture(t_map *map,char *line, char **dest, char *id)
 		path++;
 	char *clean = trim_spaces_end(path);
 	check_path(clean);
-	*dest = ft_strdup(clean);
-	free(clean);
+	*dest = ftt_strdup(clean);
 	if (!*dest)
 		error_exit("Malloc failed for texture");
 }

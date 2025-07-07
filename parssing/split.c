@@ -6,11 +6,11 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:27:53 by imiqor            #+#    #+#             */
-/*   Updated: 2025/03/15 00:27:57 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:59:19 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 char	*ftt_free(char **arr)
 {
@@ -32,7 +32,7 @@ char	*ft_strncopy(char *str, int start, int end)
 	char	*s;
 
 	i = 0;
-	s = malloc(end - start + 1);
+	s = ft_gc(end - start + 1,'m');
 	while (start < end)
 	{
 		s[i] = str[start];
@@ -76,7 +76,7 @@ void	init_state(t_state *state, char *args, char sep)
 	state->end = 0;
 	state->k = 0;
 	state->cw = count_word(args, sep);
-	state->two_d = (char **)malloc((state->cw + 1) * sizeof(char *));
+	state->two_d = (char **)ft_gc((state->cw + 1) * sizeof(char *),'m');
 }
 
 char	**split_lines(char *args, char sep)
@@ -98,7 +98,7 @@ char	**split_lines(char *args, char sep)
 		{
 			state.two_d[state.k] = ft_strncopy(args, state.start, state.end);
 			if (!state.two_d[state.k])
-				ftt_free(state.two_d);
+				error_exit("split_lines failed!");
 			state.k++;
 		}
 	}

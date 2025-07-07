@@ -6,19 +6,19 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:10 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 00:51:11 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:54:44 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
-#include"header.h"
+#include"../header.h"
 int	parse_rgb(char *line, int *r, int *g, int *b)
 {
 	char	**splited_line;
 	int		count;
 
-	splited_line = ft_split(line + 2, ',');
+	splited_line = split_lines(line + 2, ',');
 	if (!splited_line)
 		return (0);
 	count = 0;
@@ -26,13 +26,11 @@ int	parse_rgb(char *line, int *r, int *g, int *b)
 		count++;
 	if (count != 3)
 	{
-		ftt_free(splited_line);
 		return (0);
 	}
 	*r = ft_atoi(splited_line[0]);
 	*g = ft_atoi(splited_line[1]);
 	*b = ft_atoi(splited_line[2]);
-	ftt_free(splited_line);
 	if (*r < 0 || *r > 255 || *g < 0 || *g > 255 || *b < 0 || *b > 255)
 		return (0);
 	return (1);

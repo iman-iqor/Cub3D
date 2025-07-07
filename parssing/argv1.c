@@ -6,13 +6,13 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:03 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 16:50:27 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:54:38 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
-#include"header.h"
+#include"../header.h"
 int	check_if_file_exist(char *argv)
 {
 	int	fd;

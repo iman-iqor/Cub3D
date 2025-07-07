@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:17 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/04 23:39:19 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:10:10 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ void	check_map_content(char **content, t_map *map)
 
 	i = 0;
 	parse_textures_and_colors(map->map_two_d, &i, map);
-	free(map->no);
-	free(map->we);
-	free(map->so);
-	free(map->ea);
+	
 	
 	while (content[i] && ft_strcmp(content[i], "\n") == 0)
 		i++;
@@ -62,7 +59,7 @@ void	init_game(t_game *game, t_map *map)
 int	main(int argc, char **argv)
 {
 	t_map	map;
-	t_game game;
+	// t_game game;
 
 	ft_memset(&map, 0, sizeof(t_map));
 	check_argc(argc);
@@ -73,8 +70,8 @@ int	main(int argc, char **argv)
 
 
 	/****Start the game*** */
-	init_game(&game,&map);
-	mlx_loop(game.mlx);
-
+	// init_game(&game,&map);
+	// mlx_loop(game.mlx);
+	ft_gc(0,'f');
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/29 19:06:32 by imiqor            #+#    #+#             */
-/*   Updated: 2024/11/15 01:24:02 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:01:44 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strdup(const char *s1)
 	int		i;
 
 	len = ft_strlen(s1);
-	str2 = malloc(len + 1);
+	str2 =malloc(len + 1);
 	if (!str2)
 		return (NULL);
 	i = 0;

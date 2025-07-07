@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/04 23:40:14 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 21:58:19 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ typedef struct s_state
 	char	**two_d;
 }			t_state;
 
-
+typedef struct s_gc
+{
+	void		*ptr;
+	struct s_gc	*next;
+}				t_gc;
 
 
 typedef struct s_map
@@ -111,5 +115,11 @@ int			ft_strcmp(char *s1, char *s2);
 void		error_exit(char *msg);
 int			is_blank(char *s);
 void		check_no_blank_lines_inside_map(char **content, int start);
+char	*ftt_strdup(const char *s1);
+/******  GARBAGE_COLLECTOR ****** */
+void	add(t_gc **gc, t_gc *new);
+t_gc	*create(void *ptr);
+void	fr_ee(t_gc *gc);
+void	*ft_gc(size_t n, char flag);
 
 #endif

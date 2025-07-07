@@ -6,13 +6,13 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:47 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 17:12:46 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:55:11 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
-#include"header.h"
+#include"../header.h"
 int is_valid_map_char(char c)
 {
 	if(c == '0' || c == '1' || c == ' ' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
@@ -37,7 +37,6 @@ void validate_map_chars(t_map *map)
         {
             if (!is_valid_map_char(line[j]))
 			{
-                ftt_free(map->map_grid);
                 error_exit("Invalid character in map");
 			}
             if (line[j] == 'N' || line[j] == 'S' || line[j] == 'E' || line[j] == 'W')
@@ -48,7 +47,6 @@ void validate_map_chars(t_map *map)
     }
     if (player_count != 1)
     {
-        ftt_free(map->map_grid);
         error_exit("Map must have exactly one player start");
     }
 }

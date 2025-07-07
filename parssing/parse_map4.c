@@ -6,11 +6,11 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:24:50 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/03 17:20:27 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 22:55:15 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "../header.h"
 
 int	ft_check_is_player(char c)
 {
