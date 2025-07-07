@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/07 21:58:19 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/07 23:17:46 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int			parse_rgb(char *line, int *r, int *g, int *b);
 void		set_floor_color(t_map *map, char *line);
 void		set_ceiling_color(t_map *map, char *line);
 /******  ARGV1  ****** */
+void parssing(t_map* map,int argc,char** argv);
+void	check_map_content(char **content, t_map *map);
 int			check_if_file_exist(char *argv);
 void		check_extention(char *argv);
 void		check_argc(int argc);
