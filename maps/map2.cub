@@ -1,7 +1,7 @@
-NO textures/wood0.xpm          
-SO textures/wood1.xpm
-WE textures/wood2.xpm
-EA textures/wood3.xpm
+NO textures/north.xpm          
+SO textures/south.xpm
+WE textures/west.xpm
+EA textures/east.xpm
 F 81,41,28
 C 53,168,230
 
