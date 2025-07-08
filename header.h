@@ -6,13 +6,13 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/07 23:55:25 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/08 22:12:01 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
 # define HEADER_H
-# include "./get_next_line/get_next_line.h"
+# include "./parssing/get_next_line/get_next_line.h"
 # include "./libft/libft.h"
 # include "./minilibx-linux/mlx.h"
 # include <errno.h>
@@ -21,7 +21,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
+#define TILE_SIZE 64
 typedef struct s_state
 {
 	int			i;
@@ -42,15 +42,15 @@ typedef struct s_map
 {
 	int			fd;
 	int			line_count;
-	int			grid_lines_count;
-	char		**map_two_d;
-	char		**map_grid;
+	int			grid_lines_count;//this sis lines  count of the pure map
+	char		**map_two_d;//this the entire map file including textures and colors
+	char		**map_grid;//this is the pure map
 	int			player_x;
 	int			player_y;
 	char		player_dir;
-	int			map_width;
-	int			map_height;
-	char		*lines;
+	int			map_width;//width of pure map
+	int			map_height;//height of pure map
+	char		*lines;//lines of the whole map file
 	char		*no;
 	char		*so;
 	char		*we;
@@ -68,6 +68,11 @@ typedef struct s_game
 	int			win_width;
 	int			win_height;
 	t_map map; // Map data you already parsed
+	 void    *img;           // ↖ your drawing surface
+    char    *data_addr;     // ↖ pointer to its pixel data
+    int     bpp;            // ↖ bits per pixel
+    int     line_len;       // ↖ bytes per scanline
+    int     endian;   
 	double		player_x;
 	double		player_y;
 	double dir_x; // Player direction vector (for raycasting)

@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS_MAC = -framework OpenGL -framework AppKit -L./minilibx -lmlx
 MLX_FLAGS_LINUX = -L./minilibx-linux -lmlx -lXext -lX11
 L_FLAGS = -lmlx -lXext -lX11 -lm -lz
-SRC = main.c ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c ./parssing/split.c \
+SRC = main.c ./parssing/get_next_line/get_next_line.c ./parssing/get_next_line/get_next_line_utils.c ./parssing/split.c \
 ./parssing/argv1.c ./parssing/colors.c ./parssing/map_content.c ./parssing/parse_map1.c \
 ./parssing/parse_map2.c ./parssing/parse_map3.c \
 ./parssing/parssing_utils.c   ./parssing/utils.c \
