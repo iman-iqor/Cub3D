@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/08 22:12:01 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/09 21:50:29 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,5 +131,18 @@ void			add(t_gc **gc, t_gc *new);
 t_gc			*create(void *ptr);
 void			fr_ee(t_gc *gc);
 void			*ft_gc(size_t n, char flag);
+
+/******  DRAW_MAP ****** */
+void	draw_map_and_player(t_game *game, t_map *map);
+void	draw_tile(t_game *g, int x, int y, int color);
+void	draw_player(t_game *game, t_map *map);
+void	put_pixel(t_game *g, int x, int y, int color);
+int	render_frame(t_game *game);
+/******  LOAD_IMAGES ****** */
+void	image_failed_to_load(t_game *game);
+void	load_images(t_game *game, t_map *map);
+/******  LOAD_IMAGES ****** */
+void	init_game(t_game *game, t_map *map);
+
 
 #endif
