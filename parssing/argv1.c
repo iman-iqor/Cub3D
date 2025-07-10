@@ -6,16 +6,17 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:03 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/07 23:16:14 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/09 23:12:59 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 
 #include"../header.h"
-void parssing(t_map* map,int argc,char** argv)
+void parssing(t_map* map,t_game* game, int argc,char** argv)
 {
 	ft_memset(map, 0, sizeof(t_map));
+	ft_memset(game, 0, sizeof(t_game));
 	check_argc(argc);
 	check_extention(argv[1]);
 	check_if_file_exist(argv[1]);

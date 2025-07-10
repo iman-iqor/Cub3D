@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 21:49:44 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/09 21:50:12 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/09 22:13:24 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_game(t_game *game, t_map *map)
 		game->dir_y = -1;
 		game->plane_x = 0.66;
 		game->plane_y = 0;
+		game->angle = -M_PI/2;
 	}
 	if (map->player_dir == 'S')
 	{
@@ -49,6 +50,7 @@ void	init_game(t_game *game, t_map *map)
 		game->dir_y = 1;
 		game->plane_x = -0.66;
 		game->plane_y = 0;
+		game->angle= M_PI / 2;
 	}
 	if (map->player_dir == 'E')
 	{
@@ -56,6 +58,7 @@ void	init_game(t_game *game, t_map *map)
 		game->dir_y = 0;
 		game->plane_x = 0;
 		game->plane_y = 0.66;
+		game->angle = 0;
 	}
 	if (map->player_dir == 'W')
 	{
@@ -63,5 +66,6 @@ void	init_game(t_game *game, t_map *map)
 		game->dir_y = 0;
 		game->plane_x = 0;
 		game->plane_y = -0.66;
+		game->angle  = M_PI;
 	}
 }

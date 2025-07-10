@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/09 21:50:29 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/07/09 23:54:54 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,18 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include <stdbool.h>
+
 #define TILE_SIZE 64
+# define M_PI 3.14159265358979323846
+# define ESC_KEY 65307
+# define W 119
+# define A 97
+# define S 115
+# define D 100
+# define SPACE 32
+#define LEFT_ARROW  65361   // XK_Left
+#define RIGHT_ARROW 65363   // XK_Right
 typedef struct s_state
 {
 	int			i;
@@ -67,6 +78,13 @@ typedef struct s_game
 	void *win; // Window
 	int			win_width;
 	int			win_height;
+	float angle;
+	bool  key_up;
+    bool  key_down;
+    bool  key_left;
+    bool  key_right;
+    bool  rot_left;
+    bool  rot_right;
 	t_map map; // Map data you already parsed
 	 void    *img;           // ↖ your drawing surface
     char    *data_addr;     // ↖ pointer to its pixel data
@@ -100,7 +118,7 @@ int				parse_rgb(char *line, int *r, int *g, int *b);
 void			set_floor_color(t_map *map, char *line);
 void			set_ceiling_color(t_map *map, char *line);
 /******  ARGV1  ****** */
-void			parssing(t_map *map, int argc, char **argv);
+void			parssing(t_map *map, t_game* game, int argc, char **argv);
 void			check_map_content(char **content, t_map *map);
 int				check_if_file_exist(char *argv);
 void			check_extention(char *argv);
