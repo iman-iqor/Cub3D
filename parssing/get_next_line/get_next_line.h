@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 20:55:27 by imiqor            #+#    #+#             */
-/*   Updated: 2025/03/15 00:58:17 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/09/20 16:23:34 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "../../header.h"
 
 char	*ft_sstrjoin(char *save, char *buff);
 char	*ft_sstrdup(char *s);

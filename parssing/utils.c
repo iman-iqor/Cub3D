@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:52:08 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/07 22:59:26 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/09/20 16:08:36 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,14 @@ int	ft_strcmp(char *s1, char *s2)
 
 
 
+
 void	error_exit(char *msg)
 {
 	write(2, "Error ", 7);
 	write(2, msg, ft_strlen(msg));
 	write(2, "\n", 1);
 	ft_gc(0,'f');
+	
 	exit(EXIT_FAILURE);
 }
 char	*ftt_strdup(const char *s1)
