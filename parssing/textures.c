@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:59 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/07 22:55:23 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/09/21 16:35:08 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	*trim_spaces_end(char *str)
 void	assign_texture(t_map *map,char *line, char **dest, char *id)
 {
 	char	*path;
+	char *clean;
 
 	if(ft_strcmp(id,"NO") == 0 && map->has_no)
 		error_exit("Duplicate NO texture");
@@ -56,7 +57,7 @@ void	assign_texture(t_map *map,char *line, char **dest, char *id)
 	path = line + ft_strlen(id);
 	while (*path == ' ')
 		path++;
-	char *clean = trim_spaces_end(path);
+	clean = trim_spaces_end(path);
 	check_path(clean);
 	*dest = ftt_strdup(clean);
 	if (!*dest)

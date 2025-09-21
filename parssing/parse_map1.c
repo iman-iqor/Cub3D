@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:32 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/07 22:54:58 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/09/21 15:07:09 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ void	find_player_position(t_map *map)
 
 void	parse_map(t_map *map, char **content, int start)
 {
-	int i;
-	 i =0;
+	// int i;
+	//  i =0;
 	store_map_lines(content, start, map);
 	validate_map_chars(map);
 	validate_walls(map);
 	find_player_position(map);
-	while(map->map_two_d[i])
-	{
-		free(map->map_two_d[i++]);
-	}
+	// while(map->map_two_d[i])
+	// {
+	// 	free(map->map_two_d[i++]);
+	// }
 	
 }

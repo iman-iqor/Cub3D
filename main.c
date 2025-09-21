@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:17 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/20 18:49:19 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/09/21 18:52:49 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,25 @@ int	key_release(int key, t_game *g)
 
 int	render_frame(t_game *game)
 {
+	if(game->rot_left)
+	{
+		game->map.player_x = game->map.player_x -50;
+		// game->map.player_y =game->map.player_y +0.1 ;
+		mlx_clear_window(game->mlx,game->win);
+		// printf("%d\n",game->map.player_y);
+	}
 	// Redraw everything here
 	draw_map_and_player(game, &game->map);
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
 	return (0);
 }
+
+
+int exiter(int key)
+{
+	exit(key);
+}
+
 int	main(int argc, char **argv)
 {
 	t_map	map;
@@ -84,6 +98,7 @@ int	main(int argc, char **argv)
 	init_game(&game, &map);
 	mlx_loop_hook(game.mlx, render_frame, &game);
 	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+	mlx_hook(game.win, 17, 0,exiter, &game);
 	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
 	mlx_loop(game.mlx);
 	ft_gc(0, 'f');

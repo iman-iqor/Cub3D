@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/20 16:08:22 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/09/21 18:42:17 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ typedef struct s_map
 	int			grid_lines_count;//this sis lines  count of the pure map
 	char		**map_two_d;//this the entire map file including textures and colors
 	char		**map_grid;//this is the pure map
-	int			player_x;
-	int			player_y;
+	float			player_x;
+	float			player_y;
 	char		player_dir;
 	int			map_width;//width of pure map
 	int			map_height;//height of pure map
