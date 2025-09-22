@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 21:40:33 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/21 18:40:10 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/09/22 22:32:25 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	put_pixel(t_game *g, int x, int y, int color)
 {
 	char	*dst;
-
 	// 1) calculate the address of pixel (x,y):
 	dst = g->data_addr + y * g->line_len // jump down y rows
 		+ x * (g->bpp / 8);              // jump right x pixels
@@ -31,18 +30,12 @@ void	draw_player(t_game *game, t_map *map)
 
 	px = map->player_x * TILE_SIZE;
 	py = map->player_y * TILE_SIZE;
-	int size = TILE_SIZE / 4; // Quarter‑tile square
-	dy = -size;
-	while (dy <= size)
-	{
-		dx = -size;
-		while (dx <= size)
-		{
-			put_pixel(game, px + dx, py + dy, 0xFF0000);
-			dx++;
-		}
-		dy++;
-	}
+	put_pixel(game, px, py+1, 0xFF0000);
+	put_pixel(game, px+1, py+1, 0xFF0000);
+	put_pixel(game, px+1, py, 0xFF0000);
+	put_pixel(game, px, py, 0xFF0000);
+
+	int size = TILE_SIZE ;
 }
 
 void	draw_tile(t_game *g, int x, int y, int color)

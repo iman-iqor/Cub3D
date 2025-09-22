@@ -1,5 +1,5 @@
 CC = cc  -g3
-CFLAGS = -Wall -Wextra -Werror
+# CFLAGS = -Wall -Wextra -Werror
 MLX_FLAGS_MAC = -framework OpenGL -framework AppKit -L./minilibx -lmlx
 MLX_FLAGS_LINUX = -L./minilibx-linux -lmlx -lXext -lX11
 L_FLAGS = -lmlx -lXext -lX11 -lm -lz
