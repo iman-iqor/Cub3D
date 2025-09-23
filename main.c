@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:17 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/22 22:32:56 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/09/23 17:01:26 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	render_frame(t_game *game)
 
 	if (game->key_left)
 	{
+		printf("left\n");
 		x = game->map.player_x - 0.01;
 		if (game->map.map_grid[(int)game->map.player_y][(int)x] == '0')
 			game->map.player_x = x;
@@ -79,7 +80,8 @@ int	render_frame(t_game *game)
 	}
 	if (game->key_right)
 	{
-		x = game->map.player_x + 0.01 ; 
+		printf("right\n");
+		x = game->map.player_x + 0.01;
 		if (game->map.map_grid[(int)game->map.player_y][(int)x] == '0')
 		game->map.player_x = x;
 		mlx_clear_window(game->mlx, game->win);
@@ -94,6 +96,7 @@ int	render_frame(t_game *game)
 	}
 	if (game->key_down)
 	{
+		printf("down\n");
 		x = game->map.player_y + 0.01;
 		if (game->map.map_grid[(int)x ][(int)game->map.player_x] == '0')
 		game->map.player_y = x;

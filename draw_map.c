@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 21:40:33 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/22 22:32:25 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/09/23 17:34:36 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,13 @@ void	draw_player(t_game *game, t_map *map)
 
 	px = map->player_x * TILE_SIZE;
 	py = map->player_y * TILE_SIZE;
-	put_pixel(game, px, py+1, 0xFF0000);
-	put_pixel(game, px+1, py+1, 0xFF0000);
-	put_pixel(game, px+1, py, 0xFF0000);
-	put_pixel(game, px, py, 0xFF0000);
+	for (dy = -1; dy <= 1; dy++)
+	{
+		for (dx = -1; dx <= 1; dx++)
+		{
+			put_pixel(game, px + dx, py + dy, 0xFF0000);
+		}
+	}
 
 	int size = TILE_SIZE ;
 }
