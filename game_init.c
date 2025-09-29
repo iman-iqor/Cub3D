@@ -16,6 +16,9 @@ void	init_game(t_game *game, t_map *map)
 {
 	game->win_width = map->map_width * TILE_SIZE;
 	game->win_height = map->map_height * TILE_SIZE;
+	printf("%d\n",game->win_width);
+	printf("%d\n",game->win_height);
+
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		error_exit("MLX failed to init");
@@ -63,7 +66,7 @@ void	init_game(t_game *game, t_map *map)
 	if (map->player_dir == 'W')
 	{
 		game->dir_x = -1;
-		game->dir_y = 0;
+		game->dir_y = 0;				
 		game->plane_x = 0;
 		game->plane_y = -0.66;
 		game->angle  = M_PI;

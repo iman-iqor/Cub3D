@@ -14,12 +14,14 @@
 
 void	put_pixel(t_game *g, int x, int y, int color)
 {
-	char	*dst;
-	// 1) calculate the address of pixel (x,y):
-	dst = g->data_addr + y * g->line_len // jump down y rows
-		+ x * (g->bpp / 8);              // jump right x pixels
-	// 2) write your 32‑bit color into that spot:
-	*(unsigned int *)dst = color; // color is 0xRRGGBB
+	if(x>= g->win_width || y >= g->win_height || x< 0 || y < 0)
+		return ;
+	int index = y * g->line_len  + x * (g->bpp / 8); 
+	g->data_addr[index]=color&0xFF; 
+	g->data_addr[index+1]=(color>>8)&0xFF; 
+	g->data_addr[index+2]=(color>>16 )&0xFF;
+	
+
 }
 void	draw_player(t_game *game, t_map *map)
 {
@@ -30,16 +32,22 @@ void	draw_player(t_game *game, t_map *map)
 
 	px = map->player_x * TILE_SIZE;
 	py = map->player_y * TILE_SIZE;
-	for (dy = -1; dy <= 1; dy++)
+
+	dy = -1;
+	while (dy <= 1)
 	{
-		for (dx = -1; dx <= 1; dx++)
+		dx = -1;
+		while (dx <= 1)
 		{
 			put_pixel(game, px + dx, py + dy, 0xFF0000);
+			dx++;
 		}
+		dy++;
 	}
 
-	int size = TILE_SIZE ;
+	int size = TILE_SIZE;
 }
+
 
 void	draw_tile(t_game *g, int x, int y, int color)
 {

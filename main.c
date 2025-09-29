@@ -116,7 +116,7 @@ int	main(int argc, char **argv)
 {
 	t_map	map;
 	t_game	game;
-
+			
 	memset(&map, 0, sizeof(map));
 	memset(&game, 0, sizeof(game));
 	parssing(&map, &game, argc, argv);
