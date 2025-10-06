@@ -23,6 +23,7 @@ void	put_pixel(t_game *g, int x, int y, int color)
 	
 
 }
+void draw_line_len(t_game *game, int x0, int y0, float angle, int len, int color);
 void	draw_player(t_game *game, t_map *map)
 {
 	int	px;
@@ -33,11 +34,11 @@ void	draw_player(t_game *game, t_map *map)
 	px = map->player_x * TILE_SIZE;
 	py = map->player_y * TILE_SIZE;
 
-	dy = -1;
-	while (dy <= 1)
+	dy = -3;
+	while (dy <= 3)
 	{
-		dx = -1;
-		while (dx <= 1)
+		dx = -3;
+		while (dx <= 3)
 		{
 			put_pixel(game, px + dx, py + dy, 0xFF0000);
 			dx++;
@@ -45,7 +46,10 @@ void	draw_player(t_game *game, t_map *map)
 		dy++;
 	}
 
-	int size = TILE_SIZE;
+	// int max_len = (game->win_width > game->win_height) ? game->win_width : game->win_height;
+    // optionally multiply by 2 for long rays: max_len *= 2;
+
+    draw_line_len(game, px, py, game->angle, 2000, 0xF0000F);
 }
 
 
@@ -66,6 +70,49 @@ void	draw_tile(t_game *g, int x, int y, int color)
 		i++;
 	}
 }
+// include whatever header has t_game, touch(), TILE_SIZE, put_pixel, etc.
+#include "header.h"
+#include <math.h>
+bool touch(float px, float py, t_game *game);
+// Bresenham-based line that stops when it hits a wall (touch)
+void draw_line_len(t_game *game, int x0, int y0, float angle, int len, int color)
+{
+    int x1 = x0 - (int)roundf(cosf(angle) * (float)len);
+    int y1 = y0 - (int)roundf(sinf(angle) * (float)len);
+
+    int dx = abs(x1 - x0);
+    int sx = x0 < x1 ? 1 : -1;
+    int dy = -abs(y1 - y0);
+    int sy = y0 < y1 ? 1 : -1;
+    int err = dx + dy;
+
+    while (1)
+    {
+        // draw pixel
+        put_pixel(game, x0, y0, color);
+
+        // stop if we hit a wall at this pixel
+        if (touch((float)x0, (float)y0, game))
+            return;
+
+        // finished
+        if (x0 == x1 && y0 == y1)
+            break;
+
+        int e2 = 2 * err;
+        if (e2 >= dy)
+        {
+            err += dy;
+            x0 += sx;
+        }
+        if (e2 <= dx)
+        {
+            err += dx;
+            y0 += sy;
+        }
+    }
+}
+
 
 void	draw_map_and_player(t_game *game, t_map *map)
 {

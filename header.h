@@ -78,7 +78,13 @@ typedef struct s_game
 	void *win; // Window
 	int			win_width;
 	int			win_height;
-	float angle;
+	float angle; //depends on what direction the player is facing
+	float cos_angle;
+	float sin_angle;
+	float ray_x;
+	float ray_y;
+	float angle_speed;
+	float move_speed;
 	bool  key_up;
     bool  key_down;
     bool  key_left;

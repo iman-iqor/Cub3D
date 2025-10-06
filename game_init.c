@@ -16,8 +16,7 @@ void	init_game(t_game *game, t_map *map)
 {
 	game->win_width = map->map_width * TILE_SIZE;
 	game->win_height = map->map_height * TILE_SIZE;
-	printf("%d\n",game->win_width);
-	printf("%d\n",game->win_height);
+	
 
 	game->mlx = mlx_init();
 	if (!game->mlx)
@@ -35,9 +34,8 @@ void	init_game(t_game *game, t_map *map)
 	game->data_addr = mlx_get_data_addr(game->img, &game->bpp, &game->line_len,
 			&game->endian);
 	game->map = *map;
-	// Player starting position (centered inside square)
-	game->player_x = map->player_x + 0.5;
-	game->player_y = map->player_y + 0.5;
+	game->player_x = (map->player_x + 0.5) * TILE_SIZE;
+	game->player_y = (map->player_y + 0.5) * TILE_SIZE;
 	// Direction depends on the player start orientation
 	if (map->player_dir == 'N')
 	{
@@ -45,7 +43,7 @@ void	init_game(t_game *game, t_map *map)
 		game->dir_y = -1;
 		game->plane_x = 0.66;
 		game->plane_y = 0;
-		game->angle = -M_PI/2;
+		game->angle = M_PI/2;
 	}
 	if (map->player_dir == 'S')
 	{
@@ -53,7 +51,7 @@ void	init_game(t_game *game, t_map *map)
 		game->dir_y = 1;
 		game->plane_x = -0.66;
 		game->plane_y = 0;
-		game->angle= M_PI / 2;
+		game->angle= 3*M_PI / 2;
 	}
 	if (map->player_dir == 'E')
 	{
