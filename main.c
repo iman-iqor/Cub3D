@@ -152,13 +152,13 @@ int	main(int argc, char **argv)
 	parssing(&map, &game, argc, argv);
 	init_game(&game, &map);
 	game.map.map_grid[(int)game.map.player_y][(int)game.map.player_x] = '0';
-	mlx_loop_hook(game.mlx, render_frame, &game);
+	// mlx_loop_hook(game.mlx, render_frame, &game);
 	
 
-	mlx_hook(game.win, 2, 1L << 0, key_press, &game);
-	mlx_hook(game.win, 17, 0, exiter, &game);
-	mlx_hook(game.win, 3, 1L << 1, key_release, &game);
-	mlx_loop(game.mlx);
+	// mlx_hook(game.win, 2, 1L << 0, key_press, &game);
+	// mlx_hook(game.win, 17, 0, exiter, &game);
+	// mlx_hook(game.win, 3, 1L << 1, key_release, &game);
+	// mlx_loop(game.mlx);
 	ft_gc(0, 'f');
 	return (0);
 }
