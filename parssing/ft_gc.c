@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_gc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 21:20:44 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/07 22:59:07 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/10 22:28:18 by mbenjbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,11 @@ void	add(t_gc **gc, t_gc *new)
 	{
 		ptr = *gc;
 		while (ptr && ptr->next)
-		{
 			ptr = ptr->next;
-		}
 		if (ptr)
-		{
 			ptr->next = new;
-		}
 		else
-		{
 			*gc = new;
-		}
 	}
 }
 

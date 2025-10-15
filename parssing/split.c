@@ -3,28 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:27:53 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/20 16:08:18 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/10 22:44:23 by mbenjbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
-
-char	*ftt_free(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i] != NULL)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-	return (NULL);
-}
 
 char	*ft_strncopy(char *str, int start, int end)
 {
@@ -98,7 +84,7 @@ char	**split_lines(char *args, char sep)
 		{
 			state.two_d[state.k] = ft_strncopy(args, state.start, state.end);
 			if (!state.two_d[state.k])
-				error_exit("split_lines failed!");
+				error_exit("split_lines failed!", NULL);
 			state.k++;
 		}
 	}

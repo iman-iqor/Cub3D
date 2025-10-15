@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map4.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 16:24:50 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/20 16:11:17 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/10 22:26:12 by mbenjbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,12 @@ int is_not_sorrounded(t_map *map,int i,int j)
         return 1;
     return 0;
 }
-/*
-Is not on the border,
 
-Is not touching a space ' ',
-
-Is not near a row that is too short (avoids segmentation fault or undefined access).
-*/
 void	validate_walls(t_map *map)
 {
 	int	i;
 	int	j;
 
-	map->grid_lines_count = count_map_lines(map->map_grid, 0);
 	i = -1;
 	while (map->map_grid[++i])
 	{
@@ -67,10 +60,7 @@ void	validate_walls(t_map *map)
 				|| ft_check_is_player(map->map_grid[i][j]))
 			{
 				if (is_not_sorrounded(map, i ,j))
-                    {
-                        //ftt_free(map->map_two_d);//i think it s causing double free
-					error_exit("Error\nMap is not closed around");
-                    }
+					    error_exit("Map is not closed around", NULL);
 			}
 		}
 	}

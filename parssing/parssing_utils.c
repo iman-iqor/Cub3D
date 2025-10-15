@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parssing_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 22:53:07 by imiqor            #+#    #+#             */
-/*   Updated: 2025/07/07 22:54:07 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/10 22:43:41 by mbenjbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,45 @@ void	check_no_blank_lines_inside_map(char **content, int start)
 		if (is_blank(content[i]))
 		{
 			if (map_started)
-			{
-				ftt_free(content);
-				error_exit("Map contains empty line inside");
-			}
+				error_exit("Map contains empty line inside", NULL);
 		}
 		else
-		{
 			map_started = 1;
-		}
 		i++;
 	}
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i] && s2[i])
+	{
+		if (s1[i] == s2[i])
+			i++;
+		else
+			break ;
+	}
+	return (s1[i] - s2[i]);
+}
+
+char	*ftt_strdup(const char *s1)
+{
+	char	*str2;
+	int		len;
+	int		i;
+
+	len = ft_strlen(s1);
+	str2 =ft_gc(len + 1,'m');
+	if (!str2)
+		return (NULL);
+	i = 0;
+	while (s1[i])
+	{
+		str2[i] = s1[i];
+		i++;
+	}
+	str2[i] = 0;
+	return (str2);
 }

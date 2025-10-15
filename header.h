@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   header.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/21 18:42:17 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/14 21:01:42 by mbenjbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,10 @@
 # define SPACE 32
 #define LEFT_ARROW  65361   // XK_Left
 #define RIGHT_ARROW 65363   // XK_Right
+# define WINDOW_WIDTH 1600
+# define WINDOW_HEIGHT 800
+
+
 typedef struct s_state
 {
 	int			i;
@@ -51,17 +55,16 @@ typedef struct s_gc
 
 typedef struct s_map
 {
-	int			fd;
-	int			line_count;
-	int			grid_lines_count;//this sis lines  count of the pure map
-	char		**map_two_d;//this the entire map file including textures and colors
-	char		**map_grid;//this is the pure map
-	float			player_x;
-	float			player_y;
+	int			line_count; // line count of whole map file
+	int			grid_lines_count; //lines count of the pure map
+	int			map_width; //width of pure map
+	int			map_height; //height of pure map
+	int			start_of_map;
+	char		**map_two_d; //this the entire map file
+	char		**map_grid; //this is the pure map
+	float		player_x;
+	float		player_y;
 	char		player_dir;
-	int			map_width;//width of pure map
-	int			map_height;//height of pure map
-	char		*lines;//lines of the whole map file
 	char		*no;
 	char		*so;
 	char		*we;
@@ -70,46 +73,74 @@ typedef struct s_map
 	int has_floor, has_ceiling;
 	int floor_r, floor_g, floor_b;
 	int ceiling_r, ceiling_g, ceiling_b;
+	int floor_color;
+	int ceiling_color;
 }				t_map;
+
+typedef	struct s_distance
+{
+	double	h_hitx;
+	double	xh_step;
+	double	h_hity;
+	double	yh_step;
+
+	double	v_hitx;
+	double	xv_step;
+	double	v_hity;
+	double	yv_step;
+} t_distance;
+
+
+typedef struct s_texture
+{
+	void	*textu;
+	char	*address;
+	int		endian;
+	int		width;
+	int		height;
+	int		lenght;
+	int		bpp;
+}		t_texture;
 
 typedef struct s_game
 {
-	void *mlx; // MLX connection
-	void *win; // Window
-	int			win_width;
-	int			win_height;
-	float angle; //depends on what direction the player is facing
-	float cos_angle;
-	float sin_angle;
-	float ray_x;
-	float ray_y;
-	float angle_speed;
-	float move_speed;
-	bool  key_up;
-    bool  key_down;
-    bool  key_left;
-    bool  key_right;
-    bool  rot_left;
-    bool  rot_right;
-	t_map map; // Map data you already parsed
-	 void    *img;           // ↖ your drawing surface
-    char    *data_addr;     // ↖ pointer to its pixel data
-    int     bpp;            // ↖ bits per pixel
-    int     line_len;       // ↖ bytes per scanline
-    int     endian;   
-	double		player_x;
-	double		player_y;
-	double dir_x; // Player direction vector (for raycasting)
+	void		*mlx;
+	void 		*win;
+	t_map 		*map;
+	char		**grid;
+	int			map_height;
+	int			map_width;
+	double		p_x;
+	double		p_y;
+	double		angle;
+	double		cur_angle;
+	double		cur_column;
+	double		fov;
+	double		rot_angle;
+	double		wall_distance;
+	t_distance	*dist;
+	double		height_wall;
+	void		*img;
+    char    	*data_addr;
+    int     	bpp;
+    int     	line_len;
+    int     	endian;
+	int  		key_up;
+    int  		key_down;
+    int  		key_left;
+    int  		key_right;
+    int  		rot_left;
+    int  		rot_right;
+	t_texture	textures[4];
+	int			flag; //1 if horizontal closer
+
+	double 		dir_x;
 	double		dir_y;
-	double plane_x; // 2D camera plane
+	double 		plane_x;
 	double		plane_y;
-	void		*wall_no;
-	void		*wall_so;
-	void		*wall_we;
-	void		*wall_ea;
 }				t_game;
-/******  SPLIT   ****** */
-char			*ftt_free(char **arr);
+
+/******  Splits  ****** */
 char			*ft_strncopy(char *str, int start, int end);
 int				count_word(char *args, char sep);
 void			init_state(t_state *state, char *args, char sep);
@@ -123,10 +154,11 @@ void			parse_textures_and_colors(char **lines, int *i, t_map *map);
 int				parse_rgb(char *line, int *r, int *g, int *b);
 void			set_floor_color(t_map *map, char *line);
 void			set_ceiling_color(t_map *map, char *line);
-/******  ARGV1  ****** */
-void			parssing(t_map *map, t_game* game, int argc, char **argv);
+int	rgb_to_hex(int r, int g, int b);
+/******  Parssing  ****** */
+void			parssing(t_map *map, int argc, char **argv);
 void			check_map_content(char **content, t_map *map);
-int				check_if_file_exist(char *argv);
+void			check_if_file_exist(char *argv);
 void			check_extention(char *argv);
 void			check_argc(int argc);
 /******  MAP_CONTENT  ****** */
@@ -143,10 +175,7 @@ void			validate_walls(t_map *map);
 int				ft_check_is_player(char c);
 void			parse_map(t_map *map, char **content, int start);
 /******  UTILS  ****** */
-char			*ft_ssstrjoin(char *save, char *buff);
 int				ft_strcmp(char *s1, char *s2);
-int				ft_strcmp(char *s1, char *s2);
-void			error_exit(char *msg);
 int				is_blank(char *s);
 void			check_no_blank_lines_inside_map(char **content, int start);
 char			*ftt_strdup(const char *s1);
@@ -168,5 +197,19 @@ void	load_images(t_game *game, t_map *map);
 /******  LOAD_IMAGES ****** */
 void	init_game(t_game *game, t_map *map);
 
+
+
+/******  Raycasting Simo   ****** */
+void    game_init(t_game *game);
+void	error_exit(char *msg, t_game *game);
+void    rendering(t_game *game);
+void  get_dist(t_game *game);
+void    final_distance(t_game *game);
+int		key_press(int key, void *param);
+int		key_release(int key, void *param);
+int 	up(double angle);
+int 	down(double angle);
+int 	right(double angle);
+int 	left(double angle);
 
 #endif

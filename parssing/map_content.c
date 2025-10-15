@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_content.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:24 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/20 18:17:00 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/10 22:27:57 by mbenjbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int	nbr_of_lines(char *filename)
 	line = get_next_line(fd, 0);
 	while (line)
 	{
-		// free(line);
 		i++;
 		line = get_next_line(fd, 0);
 	}
@@ -44,15 +43,10 @@ void	get_cub_content(char *argv, t_map *map)
 
 	i = 0;
 	len = nbr_of_lines(argv);
-	printf("%s\n", argv);
 	map->line_count = len;
 	map->map_two_d = ft_gc(sizeof(char *) * (len + 1), 'm');
 	if (!map->map_two_d)
-	{
-		write(2, "Malloc Error: map_cotent.c: 52\n", 32);
-		ft_gc(0, 'f');
-		exit(1);
-	}
+		error_exit("Malloc Error", NULL);
 	fd = open(argv, O_RDONLY);
 	map->map_two_d[i] = get_next_line(fd, 0);
 	while (i < len && map->map_two_d[i++])
