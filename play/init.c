@@ -6,7 +6,7 @@
 /*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 20:35:01 by mbenjbar          #+#    #+#             */
-/*   Updated: 2025/10/12 19:55:41 by mbenjbar         ###   ########.fr       */
+/*   Updated: 2025/10/28 15:29:12 by mbenjbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,24 +41,24 @@ static void    texture_addr_loading(t_game *game)
 
 static double  handle_direction(char direct)
 {
-    if (direct == 'E')
-		  return (0);
-    if (direct == 'N')
-		  return (90 * (M_PI / 180));
-    if (direct == 'W')
-		  return (180 * (M_PI / 180));
-    else
-		  return (270 * (M_PI / 180));
+	if (direct == 'N')
+		return (90 * (M_PI / 180));
+	if (direct == 'S')
+		return (270 * (M_PI / 180));
+	if (direct == 'E')
+		return (0);
+	else
+		return (180 * (M_PI / 180));
 }
 
 void    game_init(t_game *game)
 {
-    game->fov = 70 * (M_PI / 180);
+    game->fov = 60 * (M_PI / 180);
     game->rot_angle = 0.8 * (M_PI / 180);
     game->p_x = game->map->player_x * TILE_SIZE;
     game->p_y = game->map->player_y * TILE_SIZE;
     game->grid = game->map->map_grid;
-    game->map_height = game->map->map_height;
+    game->map_height = game->map->grid_lines_count;
     game->map_width = game->map->map_width;
     game->angle = handle_direction(game->map->player_dir);
     game->dist = ft_gc(sizeof(t_distance), 'm');

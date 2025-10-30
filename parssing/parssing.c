@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parssing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:03 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/10 22:47:06 by mbenjbar         ###   ########.fr       */
+/*   Updated: 2025/10/30 16:00:50 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ void	check_extention(char *argv)
 	char	*tmp;
 
 	len = ft_strlen(argv);
-	tmp = ft_strrchr(argv, '/');
-	if ((ft_strncmp(argv + len - 4, ".cub", 4)) || (ft_strlen(argv) <= 4)
-		|| (tmp && ft_strlen(ft_strrchr(tmp, '/')) <= 5))
+	if ((ft_strncmp(argv + len - 4, ".cub", 4)) || (ft_strlen(argv) <= 4))
 	{
 		error_exit("bad extension", NULL);
 	}

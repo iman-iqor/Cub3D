@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:59 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/10 22:36:00 by mbenjbar         ###   ########.fr       */
+/*   Updated: 2025/10/30 19:32:13 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../header.h"
+#include "../header.h"
 
 void	check_path(char *path)
 {
@@ -29,34 +29,33 @@ char	*trim_spaces_end(char *str)
 	if (!str)
 		return (NULL);
 	len = ft_strlen(str);
-	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\n' || str[len - 1] == '\t'))
+	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\n' || str[len
+			- 1] == '\t'))
 		len--;
-	trimmed = ft_gc(len + 1,'m');
+	trimmed = ft_gc(len + 1, 'm');
 	if (!trimmed)
 		return (NULL);
 	ft_strlcpy(trimmed, str, len + 1);
 	return (trimmed);
 }
-void	assign_texture(t_map *map,char *line, char **dest, char *id)
+void	assign_texture(t_map *map, char *line, char **dest, char *id)
 {
 	char	*path;
 
-	if(ft_strcmp(id,"NO") == 0 && map->has_no)
+	if (ft_strcmp(id, "NO") == 0 && map->has_no)
 		error_exit("Duplicate NO texture", NULL);
-	else if(ft_strcmp(id,"SO") == 0 && map->has_so)
+	else if (ft_strcmp(id, "SO") == 0 && map->has_so)
 		error_exit("Duplicate SO texture", NULL);
-	else if(ft_strcmp(id,"WE") == 0 && map->has_we)
+	else if (ft_strcmp(id, "WE") == 0 && map->has_we)
 		error_exit("Duplicate WE texture", NULL);
-	else if(ft_strcmp(id,"EA") == 0 && map->has_ea)
+	else if (ft_strcmp(id, "EA") == 0 && map->has_ea)
 		error_exit("Duplicate EA texture", NULL);
-
 	path = line + ft_strlen(id);
 	while (*path == ' ')
 		path++;
 	*dest = trim_spaces_end(path);
 	check_path(*dest);
 }
-
 
 void	parse_textures_and_colors(char **lines, int *i, t_map *map)
 {
@@ -65,13 +64,17 @@ void	parse_textures_and_colors(char **lines, int *i, t_map *map)
 		if (lines[*i] && is_blank(lines[*i]))
 			(*i)++;
 		else if (ft_strncmp(lines[*i], "NO ", 3) == 0)
-			assign_texture(map,lines[*i], &map->no, "NO"), map->has_no = 1, (*i)++;
+			assign_texture(map, lines[*i], &map->no, "NO"), map->has_no = 1,
+				(*i)++;
 		else if (ft_strncmp(lines[*i], "SO ", 3) == 0)
-			assign_texture(map,lines[*i], &map->so, "SO"), map->has_so = 1, (*i)++;
+			assign_texture(map, lines[*i], &map->so, "SO"), map->has_so = 1,
+				(*i)++;
 		else if (ft_strncmp(lines[*i], "WE ", 3) == 0)
-			assign_texture(map,lines[*i], &map->we, "WE"), map->has_we = 1, (*i)++;
+			assign_texture(map, lines[*i], &map->we, "WE"), map->has_we = 1,
+				(*i)++;
 		else if (ft_strncmp(lines[*i], "EA ", 3) == 0)
-			assign_texture(map,lines[*i], &map->ea, "EA"), map->has_ea = 1, (*i)++;
+			assign_texture(map, lines[*i], &map->ea, "EA"), map->has_ea = 1,
+				(*i)++;
 		else if (ft_strncmp(lines[*i], "F ", 2) == 0)
 			set_floor_color(map, lines[*i]), map->has_floor = 1, (*i)++;
 		else if (ft_strncmp(lines[*i], "C ", 2) == 0)

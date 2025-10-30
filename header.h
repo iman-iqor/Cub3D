@@ -6,7 +6,7 @@
 /*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/14 21:01:42 by mbenjbar         ###   ########.fr       */
+/*   Updated: 2025/10/18 23:02:19 by mbenjbar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <unistd.h>
 #include <stdbool.h>
 
-#define TILE_SIZE 200
+#define TILE_SIZE 60
 # define M_PI 3.14159265358979323846
 # define ESC_KEY 65307
 # define W 119
@@ -33,8 +33,9 @@
 # define SPACE 32
 #define LEFT_ARROW  65361   // XK_Left
 #define RIGHT_ARROW 65363   // XK_Right
-# define WINDOW_WIDTH 1600
-# define WINDOW_HEIGHT 800
+# define WINDOW_WIDTH 1400
+# define WINDOW_HEIGHT 600
+# define STEP 8
 
 
 typedef struct s_state
@@ -55,13 +56,12 @@ typedef struct s_gc
 
 typedef struct s_map
 {
-	int			line_count; // line count of whole map file
-	int			grid_lines_count; //lines count of the pure map
-	int			map_width; //width of pure map
-	int			map_height; //height of pure map
+	int			line_count;
+	int			grid_lines_count;
+	int			map_width;
 	int			start_of_map;
-	char		**map_two_d; //this the entire map file
-	char		**map_grid; //this is the pure map
+	char		**map_two_d;
+	char		**map_grid;
 	float		player_x;
 	float		player_y;
 	char		player_dir;
@@ -71,10 +71,8 @@ typedef struct s_map
 	char		*ea;
 	int has_no, has_so, has_we, has_ea;
 	int has_floor, has_ceiling;
-	int floor_r, floor_g, floor_b;
-	int ceiling_r, ceiling_g, ceiling_b;
-	int floor_color;
-	int ceiling_color;
+	unsigned int	floor_color;
+	unsigned int	ceiling_color;
 }				t_map;
 
 typedef	struct s_distance
@@ -114,7 +112,7 @@ typedef struct s_game
 	double		p_y;
 	double		angle;
 	double		cur_angle;
-	double		cur_column;
+	int			cur_column;
 	double		fov;
 	double		rot_angle;
 	double		wall_distance;
@@ -132,12 +130,9 @@ typedef struct s_game
     int  		rot_left;
     int  		rot_right;
 	t_texture	textures[4];
+	int			text_column;
+	int			text_index;
 	int			flag; //1 if horizontal closer
-
-	double 		dir_x;
-	double		dir_y;
-	double 		plane_x;
-	double		plane_y;
 }				t_game;
 
 /******  Splits  ****** */
@@ -154,7 +149,6 @@ void			parse_textures_and_colors(char **lines, int *i, t_map *map);
 int				parse_rgb(char *line, int *r, int *g, int *b);
 void			set_floor_color(t_map *map, char *line);
 void			set_ceiling_color(t_map *map, char *line);
-int	rgb_to_hex(int r, int g, int b);
 /******  Parssing  ****** */
 void			parssing(t_map *map, int argc, char **argv);
 void			check_map_content(char **content, t_map *map);
@@ -190,7 +184,6 @@ void	draw_map_and_player(t_game *game, t_map *map);
 void	draw_tile(t_game *g, int x, int y, int color);
 void	draw_player(t_game *game, t_map *map);
 void	put_pixel(t_game *g, int x, int y, int color);
-int	render_frame(t_game *game);
 /******  LOAD_IMAGES ****** */
 void	image_failed_to_load(t_game *game);
 void	load_images(t_game *game, t_map *map);
@@ -203,10 +196,16 @@ void	init_game(t_game *game, t_map *map);
 void    game_init(t_game *game);
 void	error_exit(char *msg, t_game *game);
 void    rendering(t_game *game);
-void  get_dist(t_game *game);
+void    normalize(double *angle);
+void    hori_first_inter(t_game *game);
+void    verti_first_inter(t_game *game);
+void    find_wall(t_game *game);
 void    final_distance(t_game *game);
+void    draw(t_game *game);
 int		key_press(int key, void *param);
 int		key_release(int key, void *param);
+int 	render_frame(void *param);
+int 	found(t_game *game, int x, int y);
 int 	up(double angle);
 int 	down(double angle);
 int 	right(double angle);

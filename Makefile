@@ -7,7 +7,8 @@ SRC = main.c ./parssing/get_next_line/get_next_line.c ./parssing/get_next_line/g
 ./parssing/parssing.c ./parssing/colors.c ./parssing/map_content.c ./parssing/parse_map1.c \
 ./parssing/parse_map2.c ./parssing/parse_map3.c \
 ./parssing/parssing_utils.c ./parssing/textures.c  ./parssing/parse_map4.c ./parssing/ft_gc.c \
-draw_map.c game_init.c ./play/exit.c ./play/init.c ./play/key.c ./play/rendering.c ./play/get_distance.c
+./play/exit.c ./play/init.c ./play/key.c ./play/rendering.c ./play/get_distance.c \
+./play/draw.c ./play/direction.c ./play/move.c
 
 NAME  = cube3d
 RM = rm -f
