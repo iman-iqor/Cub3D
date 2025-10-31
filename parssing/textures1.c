@@ -1,44 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.c                                         :+:      :+:    :+:   */
+/*   textures1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:59 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/31 16:13:15 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/31 18:46:30 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
-
-void	check_path(char *path)
-{
-	if (path == NULL)
-		return ;
-	if (!*path || access(path, F_OK) != 0)
-	{
-		error_exit("Texture path not accessible", NULL);
-	}
-}
-
-char	*trim_spaces_end(char *str)
-{
-	int		len;
-	char	*trimmed;
-
-	if (!str)
-		return (NULL);
-	len = ft_strlen(str);
-	while (len > 0 && (str[len - 1] == ' ' || str[len - 1] == '\n' || str[len
-			- 1] == '\t'))
-		len--;
-	trimmed = ft_gc(len + 1, 'm');
-	if (!trimmed)
-		return (NULL);
-	ft_strlcpy(trimmed, str, len + 1);
-	return (trimmed);
-}
 
 void	assign_texture(t_map *map, char *line, char **dest, char *id)
 {
@@ -59,22 +31,57 @@ void	assign_texture(t_map *map, char *line, char **dest, char *id)
 	check_path(*dest);
 }
 
+void	parse_texture_line(char **lines, int *i, t_map *map)
+{
+	if (ft_strncmp(lines[*i], "NO ", 3) == 0)
+	{
+		assign_texture(map, lines[*i], &map->no, "NO");
+		map->has_no = 1;
+	}
+	else if (ft_strncmp(lines[*i], "SO ", 3) == 0)
+	{
+		assign_texture(map, lines[*i], &map->so, "SO");
+		map->has_so = 1;
+	}
+	else if (ft_strncmp(lines[*i], "WE ", 3) == 0)
+	{
+		assign_texture(map, lines[*i], &map->we, "WE");
+		map->has_we = 1;
+	}
+	else if (ft_strncmp(lines[*i], "EA ", 3) == 0)
+	{
+		assign_texture(map, lines[*i], &map->ea, "EA");
+		map->has_ea = 1;
+	}
+	(*i)++;
+}
+
+void	parse_color_line(char **lines, int *i, t_map *map)
+{
+	if (ft_strncmp(lines[*i], "F ", 2) == 0)
+	{
+		set_floor_color(map, lines[*i]);
+		map->has_floor = 1;
+	}
+	else if (ft_strncmp(lines[*i], "C ", 2) == 0)
+	{
+		set_ceiling_color(map, lines[*i]);
+		map->has_ceiling = 1;
+	}
+	(*i)++;
+}
+
 void	parse_texture_or_color_line(char **lines, int *i, t_map *map)
 {
 	if (is_blank(lines[*i]))
 		(*i)++;
-	else if (ft_strncmp(lines[*i], "NO ", 3) == 0)
-		assign_texture(map, lines[*i], &map->no, "NO"), map->has_no = 1, (*i)++;
-	else if (ft_strncmp(lines[*i], "SO ", 3) == 0)
-		assign_texture(map, lines[*i], &map->so, "SO"), map->has_so = 1, (*i)++;
-	else if (ft_strncmp(lines[*i], "WE ", 3) == 0)
-		assign_texture(map, lines[*i], &map->we, "WE"), map->has_we = 1, (*i)++;
-	else if (ft_strncmp(lines[*i], "EA ", 3) == 0)
-		assign_texture(map, lines[*i], &map->ea, "EA"), map->has_ea = 1, (*i)++;
-	else if (ft_strncmp(lines[*i], "F ", 2) == 0)
-		set_floor_color(map, lines[*i]), map->has_floor = 1, (*i)++;
-	else if (ft_strncmp(lines[*i], "C ", 2) == 0)
-		set_ceiling_color(map, lines[*i]), map->has_ceiling = 1, (*i)++;
+	else if (ft_strncmp(lines[*i], "NO ", 3) == 0 || ft_strncmp(lines[*i],
+			"SO ", 3) == 0 || ft_strncmp(lines[*i], "WE ", 3) == 0
+		|| ft_strncmp(lines[*i], "EA ", 3) == 0)
+		parse_texture_line(lines, i, map);
+	else if (ft_strncmp(lines[*i], "F ", 2) == 0 || ft_strncmp(lines[*i], "C ",
+			2) == 0)
+		parse_color_line(lines, i, map);
 }
 
 void	parse_textures_and_colors(char **lines, int *i, t_map *map)

@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 20:55:36 by imiqor            #+#    #+#             */
-/*   Updated: 2025/09/20 16:39:02 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/31 18:49:25 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ char	*ft_extract_line(char *str)
 		i++;
 	if (str[i] && str[i] == '\n')
 		i++;
-	//line = malloc(i + 1);
-	line=ft_gc(i+1,'m');
+	line = ft_gc(i + 1, 'm');
 	if (!line)
 		return (NULL);
 	i = 0;
