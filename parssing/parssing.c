@@ -6,13 +6,13 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:03 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/30 16:00:50 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/31 15:52:10 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"../header.h"
+#include "../header.h"
 
-void parssing(t_map* map, int argc,char** argv)
+void	parssing(t_map *map, int argc, char **argv)
 {
 	check_argc(argc);
 	check_extention(argv[1]);
@@ -44,8 +44,9 @@ void	check_if_file_exist(char *argv)
 	if (fd < 0)
 		error_exit("file does not exist", NULL);
 	close(fd);
-	return;
+	return ;
 }
+
 void	check_extention(char *argv)
 {
 	int		len;
@@ -57,6 +58,7 @@ void	check_extention(char *argv)
 		error_exit("bad extension", NULL);
 	}
 }
+
 void	check_argc(int argc)
 {
 	if (argc != 2)

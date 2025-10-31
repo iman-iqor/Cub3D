@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parssing_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 22:53:07 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/10 22:43:41 by mbenjbar         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:51:54 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*ftt_strdup(const char *s1)
 	int		i;
 
 	len = ft_strlen(s1);
-	str2 =ft_gc(len + 1,'m');
+	str2 = ft_gc(len + 1, 'm');
 	if (!str2)
 		return (NULL);
 	i = 0;

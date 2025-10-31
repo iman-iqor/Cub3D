@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/15 00:27:53 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/10 22:44:23 by mbenjbar         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:52:21 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_strncopy(char *str, int start, int end)
 	char	*s;
 
 	i = 0;
-	s = ft_gc(end - start + 1,'m');
+	s = ft_gc(end - start + 1, 'm');
 	while (start < end)
 	{
 		s[i] = str[start];
@@ -62,7 +62,7 @@ void	init_state(t_state *state, char *args, char sep)
 	state->end = 0;
 	state->k = 0;
 	state->cw = count_word(args, sep);
-	state->two_d = (char **)ft_gc((state->cw + 1) * sizeof(char *),'m');
+	state->two_d = (char **)ft_gc((state->cw + 1) * sizeof(char *), 'm');
 }
 
 char	**split_lines(char *args, char sep)

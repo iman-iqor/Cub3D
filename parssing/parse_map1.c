@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:32 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/09 21:43:08 by mbenjbar         ###   ########.fr       */
+/*   Updated: 2025/10/31 15:51:08 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	find_player_position(t_map *map)
 	{
 		if (ft_strlen(map->map_grid[i]) > map->map_width)
 			map->map_width = ft_strlen(map->map_grid[i]);
-
 		j = 0;
 		while (map->map_grid[i][j])
 		{

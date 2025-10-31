@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/07 21:20:44 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/30 16:35:22 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/10/31 15:50:52 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	fr_ee(t_gc *gc)
 	}
 }
 
-//By making gc static, the variable
+// By making gc static, the variable
 // Is initialized only once, the first time the function runs.
 // Persists across all future calls to ft_gc.
 // Keeps track of all allocated nodes you’ve added through previous calls.
