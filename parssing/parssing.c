@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:03 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/31 15:52:10 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/11/01 18:53:51 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	check_if_file_exist(char *argv)
 void	check_extention(char *argv)
 {
 	int		len;
-	char	*tmp;
 
 	len = ft_strlen(argv);
 	if ((ft_strncmp(argv + len - 4, ".cub", 4)) || (ft_strlen(argv) <= 4))

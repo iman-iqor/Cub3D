@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:40 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/31 16:00:11 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/11/01 18:54:20 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	trim_newline(char *str)
 
 void	store_map_lines(char **content, int start, t_map *map)
 {
-	int	map_lines;
 	int	j;
 
 	j = 0;

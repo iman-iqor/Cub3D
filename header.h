@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/11/01 18:37:04 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/11/01 18:48:27 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_map
 	char			*ea;
 	int				has_no;
 	int				has_so;
-	int				has_wo;
+	int				has_we;
 	int				has_ea;
 
 	int				has_floor;
