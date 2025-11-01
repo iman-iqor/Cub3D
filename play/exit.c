@@ -3,25 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 21:33:23 by mbenjbar          #+#    #+#             */
-/*   Updated: 2025/10/10 22:11:28 by mbenjbar         ###   ########.fr       */
+/*   Updated: 2025/11/01 18:32:37 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../header.h"
 
-void    destroy_text(t_game *game)
+void	destroy_text(t_game *game)
 {
-    int	i;
+	int	i;
 
 	i = 0;
 	while (i < 4)
 	{
 		if (game->textures[i].textu)
 			mlx_destroy_image(game->mlx, game->textures[i].textu);
-        i++;
+		i++;
 	}
 }
 
@@ -33,7 +33,7 @@ void	error_exit(char *msg, t_game *game)
 		write(2, msg, ft_strlen(msg));
 		write(2, "\n", 1);
 	}
-    if (game)
+	if (game)
 	{
 		if (game->mlx)
 		{
@@ -46,6 +46,6 @@ void	error_exit(char *msg, t_game *game)
 			free(game->mlx);
 		}
 	}
-	ft_gc(0,'f');
+	ft_gc(0, 'f');
 	exit(1);
 }

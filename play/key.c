@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbenjbar <mbenjbar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 08:58:38 by mbenjbar          #+#    #+#             */
-/*   Updated: 2025/10/11 09:02:40 by mbenjbar         ###   ########.fr       */
+/*   Updated: 2025/11/01 18:32:59 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	key_press(int key, void *param)
 {
-    t_game  *game;
+	t_game	*game;
 
-    game = (t_game *)param;
+	game = (t_game *)param;
 	if (key == ESC_KEY)
 		error_exit(NULL, game);
 	else if (key == W)
@@ -36,9 +36,9 @@ int	key_press(int key, void *param)
 
 int	key_release(int key, void *param)
 {
-    t_game  *game;
+	t_game	*game;
 
-    game = (t_game *)param;
+	game = (t_game *)param;
 	if (key == W)
 		game->key_up = false;
 	else if (key == S)

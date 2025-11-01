@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 09:09:33 by mbenjbar          #+#    #+#             */
-/*   Updated: 2025/10/31 22:38:13 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/11/01 18:33:13 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	rendering(t_game *game)
 	{
 		normalize(&game->cur_angle);
 		draw_angle(game);
-		game->cur_angle -= angle_diff;	
+		game->cur_angle -= angle_diff;
 		game->cur_column++;
 	}
 	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);

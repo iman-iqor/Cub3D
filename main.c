@@ -6,13 +6,13 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:51:17 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/31 19:40:38 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/11/01 18:32:13 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-//Returns 0 just because the MiniLibX hook system expects an int return.
+// Returns 0 just because the MiniLibX hook system expects an int return.
 int	exiter(void *param)
 {
 	t_game	*game;
