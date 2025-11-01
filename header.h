@@ -6,7 +6,7 @@
 /*   By: imiqor <imiqor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/03 00:50:48 by imiqor            #+#    #+#             */
-/*   Updated: 2025/10/31 20:16:10 by imiqor           ###   ########.fr       */
+/*   Updated: 2025/11/01 18:37:04 by imiqor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,13 @@ typedef struct s_map
 	char			*so;
 	char			*we;
 	char			*ea;
-	int has_no, has_so, has_we, has_ea;
-	int has_floor, has_ceiling;
+	int				has_no;
+	int				has_so;
+	int				has_wo;
+	int				has_ea;
+
+	int				has_floor;
+	int				has_ceiling;
 	unsigned int	floor_color;
 	unsigned int	ceiling_color;
 }					t_map;
@@ -186,7 +191,7 @@ typedef struct s_game
 	t_texture		textures[4];
 	int				text_column;
 	int				text_index;
-	int flag; // 1 if horizontal closer
+	int				flag;
 }					t_game;
 
 /******  Splits  ****** */
