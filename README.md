@@ -58,11 +58,6 @@ bash
 
 ./cub3D maps/map2.cub
 
-Example Maps
-
-./cub3D maps/simple.cub
-./cub3D maps/maze.cub
-./cub3D maps/complex.cub
 
 🗺️ Map Configuration
 
