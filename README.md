@@ -45,10 +45,10 @@ cd cub3d
 
     Compile the project:
 
-cd minilibx
-make
-cd ..
-make
+1) cd minilibx
+2) make
+3) cd ..
+4) make
 
 
 🚀 Usage
