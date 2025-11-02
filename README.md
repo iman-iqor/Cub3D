@@ -39,11 +39,11 @@ Cub3D is a raycasting engine that renders a 3D perspective inside a maze from a 
 
 📦 Installation
 
-    Clone the repository:
+**Clone the repository:
 git clone https://github.com/yourusername/cub3d.git
 cd cub3d
 
-    Compile the project:
+**Compile the project:
 
 1) cd minilibx
 2) make
